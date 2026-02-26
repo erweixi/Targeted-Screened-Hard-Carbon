@@ -1,0 +1,15 @@
+task,model,cv_r2_reference
+ice,Linear,0.603539469
+ice,GBR,0.753100124
+ice,Ridge,0.607710752
+ice,Lasso,0.607801229
+ice,NeuralNetwork,0.727349720
+ice,RandomForest,0.760835290
+ice,XGB,0.757072251
+plateau,Linear,0.619319139
+plateau,GBR,0.722933851
+plateau,Ridge,0.619625418
+plateau,Lasso,0.628161974
+plateau,NeuralNetwork,0.695870591
+plateau,RandomForest,0.758438075
+plateau,XGB,0.751601307
