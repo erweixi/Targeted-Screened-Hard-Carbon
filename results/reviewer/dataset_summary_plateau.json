@@ -1,0 +1,14 @@
+{
+  "task": "plateau",
+  "data": "data/hc_dataset_plateau.csv",
+  "n_samples": 565,
+  "feature_columns": [
+    "carbonization_temperature_C",
+    "d002_nm",
+    "id_ig",
+    "ssa_m2_g",
+    "electrolyte_type",
+    "current_density_mA_g"
+  ],
+  "target_column": "plateau_capacity_mAh_g"
+}

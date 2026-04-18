@@ -1,0 +1,12 @@
+step,stage,added_feature,step_label,features,n_features,n_complete,n_train,n_test,cv_r2_mean,cv_r2_std,test_r2
+0,baseline_forward_selection,electrolyte_type,Electrolyte,electrolyte_type,1,579,463,116,0.018945352220638534,0.01274913450444879,-0.018139391767659552
+1,baseline_forward_selection,carbonization_temperature_C,+Temp,electrolyte_type;carbonization_temperature_C,2,579,463,116,0.03484313350155817,0.15479081971798556,-0.02931860268586073
+2,baseline_forward_selection,d002_nm,+d002,electrolyte_type;carbonization_temperature_C;d002_nm,3,579,463,116,0.004729831675615736,0.07821686465986645,-0.24991499967163122
+3,baseline_forward_selection,ssa_m2_g,+SSA,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g,4,579,463,116,0.12649524195906242,0.11321001340251717,0.13506542074639782
+4,baseline_forward_selection,current_density_mA_g,+Current,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g,5,579,463,116,0.19608354758529392,0.08820293589359005,0.19315933101704463
+5,baseline_forward_selection,id_ig,+ID/IG,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g;id_ig,6,579,463,116,0.20037284109324505,0.09831193916990541,0.20208382048344697
+6,omitted_features_by_missingness,carbonization_time_h,+Time,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g;id_ig;carbonization_time_h,7,543,434,109,0.2055225009845077,0.12627875502818128,0.3405255096892651
+7,omitted_features_by_missingness,heating_rate_C_min,+Heat,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g;id_ig;carbonization_time_h;heating_rate_C_min,8,361,288,73,0.1426389337320379,0.11166750098209527,0.1728524000082564
+8,omitted_features_by_missingness,pore_volume_cm3_g,+Pore,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g;id_ig;carbonization_time_h;heating_rate_C_min;pore_volume_cm3_g,9,203,162,41,0.10488896790149851,0.13682741524110528,0.19988604027250045
+9,omitted_features_by_missingness,lc_nm,+Lc,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g;id_ig;carbonization_time_h;heating_rate_C_min;pore_volume_cm3_g;lc_nm,10,82,65,17,0.07497163191589554,0.1804881166217459,0.20230495824713135
+10,omitted_features_by_missingness,la_nm,+La,electrolyte_type;carbonization_temperature_C;d002_nm;ssa_m2_g;current_density_mA_g;id_ig;carbonization_time_h;heating_rate_C_min;pore_volume_cm3_g;lc_nm;la_nm,11,53,42,11,-0.2087564967172558,0.17683107907281095,-0.3158600128505509

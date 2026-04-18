@@ -1,0 +1,14 @@
+{
+  "task": "ice",
+  "data": "data/hc_dataset_ice.csv",
+  "model": "Ridge",
+  "model_slug": "ridge",
+  "random_state": 42,
+  "cv_folds": 5,
+  "n_iter": 20,
+  "best_params": {
+    "alpha": 8.746942225411521
+  },
+  "best_cv_score": 0.6079882419386083,
+  "n_test": 113
+}

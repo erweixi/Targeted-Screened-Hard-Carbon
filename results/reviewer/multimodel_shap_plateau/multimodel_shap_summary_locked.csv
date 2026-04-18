@@ -1,0 +1,7 @@
+model,model_slug,feature,mean_abs_shap,rank
+RandomForest,randomforest_locked,carbonization_temperature_C,42.92377915944708,1
+RandomForest,randomforest_locked,ssa_m2_g,20.364876051043186,2
+RandomForest,randomforest_locked,current_density_mA_g,9.911368522560705,3
+RandomForest,randomforest_locked,id_ig,7.063951428700824,4
+RandomForest,randomforest_locked,d002_nm,4.30629145430355,5
+RandomForest,randomforest_locked,electrolyte_type,1.3939841152011696,6

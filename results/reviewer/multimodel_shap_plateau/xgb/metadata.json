@@ -1,0 +1,21 @@
+{
+  "task": "plateau",
+  "data": "data/hc_dataset_plateau.csv",
+  "model": "XGB",
+  "model_slug": "xgb",
+  "random_state": 42,
+  "cv_folds": 5,
+  "n_iter": 20,
+  "best_params": {
+    "colsample_bytree": 0.8936112071942273,
+    "gamma": 0,
+    "learning_rate": 0.036531539206744484,
+    "max_depth": 6,
+    "n_estimators": 120,
+    "reg_alpha": 0.0007292877016846107,
+    "reg_lambda": 0.0019729794907396908,
+    "subsample": 0.5534765160121136
+  },
+  "best_cv_score": 0.8107184668561247,
+  "n_test": 113
+}

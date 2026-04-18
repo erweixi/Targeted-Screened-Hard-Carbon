@@ -1,0 +1,30 @@
+{
+  "task": "ice",
+  "task_label": "ICE (modeled with logit-transformed lce target, matching the original pipeline)",
+  "target": "lce",
+  "base_features": [
+    "carbonization_temperature_C",
+    "d002_nm",
+    "id_ig",
+    "ssa_m2_g",
+    "electrolyte_type",
+    "current_density_mA_g"
+  ],
+  "missing_feature_order": [
+    "carbonization_time_h",
+    "heating_rate_C_min",
+    "pore_volume_cm3_g",
+    "lc_nm",
+    "la_nm"
+  ],
+  "best_params_source": "results/reviewer_extension_fixed/baseline_original_tasks/rf_metrics_ice.json",
+  "best_params": {
+    "bootstrap": true,
+    "max_depth": 30,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "min_samples_split": 6,
+    "n_estimators": 100
+  },
+  "data": "data/hc_dataset_original_master_with_missing_features.csv"
+}

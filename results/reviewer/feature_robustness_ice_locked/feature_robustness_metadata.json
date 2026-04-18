@@ -1,0 +1,25 @@
+{
+  "task": "ice",
+  "data": "data/hc_dataset_ice.csv",
+  "best_params_json": "results/reviewer/rf_metrics_ice.json",
+  "tag": "locked",
+  "random_state": 42,
+  "test_size": 0.2,
+  "permutation_repeats": 30,
+  "best_params": {
+    "bootstrap": true,
+    "max_depth": 30,
+    "max_features": "log2",
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "n_estimators": 600
+  },
+  "baseline_test_metrics": {
+    "r2": 0.8263801965976569,
+    "mae": 0.2565243784309856,
+    "mse": 0.09677440434671274,
+    "rmse": 0.31108584722984867
+  },
+  "ablation_param_adjustments": [],
+  "note": "This robustness analysis uses locked best_params from the final RF JSON and does not retune."
+}

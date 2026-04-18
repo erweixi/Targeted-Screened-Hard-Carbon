@@ -1,79 +1,57 @@
-# Hard-Carbon ML Pipeline (Bayesian Hyperparameter Search)
+# Targeted-Screened Hard-Carbon ML Repository
 
-This repository contains a **GitHub-ready, script-based** machine-learning workflow (no plotting scripts) to reproduce the **model training / evaluation pipeline** described in the manuscript and supplementary information.
+[English](./README.md) | [简体中文](./README.zh-CN.md) | [日本語](./README.ja.md)
 
-Key points (aligned with the paper description):
+This repository consolidates the original manuscript codebase and the post-review extensions for the hard-carbon sodium-storage machine-learning study. It is organized for direct GitHub release: datasets, reproducible code, precomputed outputs, and reviewer-response materials are kept in one place.
 
-- Dataset is split into **training/test = 8:2**.
-- Models are trained/evaluated with **5-fold cross-validation** on the training set.
-- Hyperparameters are tuned with **Bayesian optimization** (`BayesSearchCV`, scikit-optimize).
-- The best-performing model is **Random Forest regression**.
+Most result files are already included in this snapshot. Readers can inspect the shipped CSV, JSON, and PNG artifacts directly. Rerunning the code is only needed when a fresh rebuild is required.
 
-> Note: Bayesian optimization is stochastic. With fixed seeds the results are usually stable, but tiny numerical differences across OS / library versions are still possible.
+## Where to start
 
----
+| Goal | Start here | Main locations |
+| --- | --- | --- |
+| Inspect the original manuscript-level ML workflow | `README.md`, `src/run_fig_s1_benchmark.py`, `src/run_rf_final.py` | `results/`, `outputs/` |
+| Inspect reviewer-response analyses | `docs/reviewer_runbook.md` | `results/reviewer/`, `results/reviewer_10fold/` |
+| Inspect the post-review extended-dataset analyses | `python -m src.run_all_extended_capacity_analyses` | `data/`, `results/reviewer_extension_fixed/`, `outputs/` |
+| Read the preserved reviewer-response documents | `docs/reviewer_materials/` | `.docx` and `.xlsx` files |
+| Need a concise Chinese quick-start | `docs/quickstart_zh.md` | command summary |
 
-## Repository structure
+## Repository layout
 
-- `data/`
-  - `hc_dataset_ice.csv` – dataset for ICE modeling (target is **LCE**, i.e., logit(ICE)).
-  - `hc_dataset_plateau.csv` – dataset for reversible plateau capacity modeling.
-- `src/`
-  - `run_fig_s1_benchmark.py` – run 7-model benchmark with Bayesian tuning (Fig. S1-style output).
-  - `run_rf_final.py` – tune Random Forest via Bayesian search and evaluate on train/test.
-  - `search_spaces.py` – Bayesian search spaces (extracted from the provided notebooks).
-  - `utils.py` – shared utilities (loading, splitting, metrics).
-- `results/`
-  - output folder (generated after running scripts)
-
----
-
-## Data dictionary
-
-### Shared features
-
-| Column (CSV) | Meaning |
-|---|---|
-| `carbonization_temperature_C` | carbonization temperature (°C) |
-| `d002_nm` | interlayer spacing d002 (nm) |
-| `id_ig` | Raman ID/IG |
-| `ssa_m2_g` | specific surface area (m² g⁻¹) |
-| `electrolyte_type` | electrolyte type encoded as **0 = ester**, **1 = ether** |
-| `current_density_mA_g` | current density (mA g⁻¹) |
-
-### ICE task
-
-- `ice`: initial Coulombic efficiency (0–1).
-- `lce`: **logit-transformed ICE** used for regression:
-
-\[
-\mathrm{LCE} = \ln\left(\frac{\mathrm{ICE}}{1-\mathrm{ICE}}\right)
-\]
-
-### Plateau task
-
-- `plateau_capacity_mAh_g`: reversible plateau capacity (mAh g⁻¹). Values can be **0** for samples without a reversible plateau region.
-
----
+```text
+.
+├── data/                     # base datasets + extended Excel-derived datasets
+├── docs/                     # reviewer runbook, quick-start, preserved reviewer documents
+├── outputs/                  # exported figures and figure-ready helper tables
+├── results/                  # numeric outputs; manuscript-level files at root, reviewer outputs in subfolders
+├── scripts/                  # standalone helper scripts
+├── src/                      # reproducible Python modules / entry points
+├── requirements.txt
+└── .gitignore
+```
 
 ## Installation
 
-Create a clean environment (recommended) and install dependencies:
+Python 3.10-3.12 is recommended.
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+Note: `scikit-optimize` is required for the Bayesian-search scripts. In some Python 3.13 environments this dependency may not install correctly, so Python 3.10-3.12 is the safer choice for full reruns.
 
-## Reproduce the 7-model benchmark (Fig. S1-style)
+## Quick start
 
-ICE (LCE) benchmark:
+### 1. Reproduce the original manuscript benchmark and final RF model
+
+ICE benchmark:
 
 ```bash
-python -m src.run_fig_s1_benchmark --task ice \
+python -m src.run_fig_s1_benchmark \
+  --task ice \
   --data data/hc_dataset_ice.csv \
   --n-iter 20 \
+  --cv-folds 5 \
   --random-state 42 \
   --outdir results
 ```
@@ -81,49 +59,73 @@ python -m src.run_fig_s1_benchmark --task ice \
 Plateau benchmark:
 
 ```bash
-python -m src.run_fig_s1_benchmark --task plateau \
+python -m src.run_fig_s1_benchmark \
+  --task plateau \
   --data data/hc_dataset_plateau.csv \
   --n-iter 20 \
+  --cv-folds 5 \
   --random-state 42 \
   --outdir results
 ```
 
-Outputs:
-
-- `results/fig_s1_r2_ice.csv`
-- `results/fig_s1_r2_plateau.csv`
-- `results/best_params_ice.json`
-- `results/best_params_plateau.json`
-
----
-
-## Train + evaluate the final RF model (Fig. S2-style numeric outputs)
-
-ICE (LCE target):
+Final Random-Forest models:
 
 ```bash
-python -m src.run_rf_final --task ice \
-  --data data/hc_dataset_ice.csv \
-  --n-iter 20 \
-  --random-state 42 \
-  --outdir results
+python -m src.run_rf_final --task ice --data data/hc_dataset_ice.csv --n-iter 20 --cv-folds 5 --random-state 42 --outdir results/reviewer
+python -m src.run_rf_final --task plateau --data data/hc_dataset_plateau.csv --n-iter 20 --cv-folds 5 --random-state 42 --outdir results/reviewer
 ```
 
-Plateau capacity:
+### 2. Reproduce the full post-review extension in one command
 
 ```bash
-python -m src.run_rf_final --task plateau \
-  --data data/hc_dataset_plateau.csv \
-  --n-iter 20 \
-  --random-state 42 \
-  --outdir results
+python -m src.run_all_extended_capacity_analyses
 ```
 
-Outputs include:
+This command rebuilds the derived extended CSV files, the reversible-capacity baseline, the progressive feature-addition analyses, and the missing-feature statistical analysis.
 
-- `results/rf_metrics_<task>.json`
-- `results/rf_predictions_train_cv_<task>.csv`
-- `results/rf_predictions_test_<task>.csv`
-- `results/rf_model_<task>.joblib`
+### 3. Use the precomputed outputs without rerunning anything
 
----
+Key shipped outputs are already present:
+
+- Manuscript-level reference tables: `results/cv_r2_scores.csv`, `results/reference_fig_s1_r2.csv`, `results/rf_predictions_ice_logit.csv`, `results/rf_predictions_plateau.csv`
+- Manuscript/reviewer figure assets: `outputs/fig_S1_cv_r2_corrected.png`, `outputs/fig_S2_rf_performance.png`, `outputs/fig_S2_rf_best.png`, `outputs/fig_S3_shap_rf_best.png`
+- Reviewer core outputs: `results/reviewer/`, `results/reviewer_10fold/`
+- Reviewer extension outputs: `results/reviewer_extension_fixed/`
+
+## Data files
+
+| File | Role |
+| --- | --- |
+| `data/hc_dataset_ice.csv` | Base 565-row dataset for ICE modeling; the ML target is `lce = log(ice / (1 - ice))`. |
+| `data/hc_dataset_plateau.csv` | Base 565-row dataset for plateau-capacity modeling. |
+| `data/hard_carbon_database_20260323_revised.xlsx` | Extended Excel database used in the reviewer-response extension. |
+| `data/hc_dataset_extended_preprocessed.csv` | Cleaned CSV exported from the extended Excel database. |
+| `data/hc_dataset_original_master_with_missing_features.csv` | Mapped master table that merges the original 565-row dataset with extra missing-value features from the extended database. |
+| `data/hc_dataset_original_master_mapping_report.csv` | Mapping coverage summary for the merged master table. |
+
+More detail is in `data/README.md`.
+
+## Main code entry points
+
+The canonical scripts are:
+
+- `src/run_fig_s1_benchmark.py` — 7-model benchmark with Bayesian hyperparameter search
+- `src/run_rf_final.py` — final Random-Forest tuning and train/test evaluation
+- `src/run_model_comparison.py` — reviewer-response model comparison table
+- `src/run_rf_posthoc_from_best_params.py` — locked-parameter RF SHAP and robustness exports
+- `src/run_all_extended_capacity_analyses.py` — one-command extended-dataset workflow
+
+A fuller script index, including helper and provenance-preserving utilities, is in `src/README.md`.
+
+## Reproducibility notes
+
+- Bayesian optimization (`BayesSearchCV`) is stochastic. Fixed seeds are supplied, but tiny numerical deviations across Python, BLAS, and OS versions are still possible.
+- The ICE ML task uses the logit-transformed target `lce`; some descriptive or statistical analyses in the reviewer extension use raw `ice` instead. This is intentional and documented in the corresponding scripts.
+- Root-level files in `results/` and `outputs/` are manuscript-level reference artifacts. Reviewer-specific reruns live in subdirectories under `results/`.
+
+## Documentation map
+
+- `docs/reviewer_runbook.md` — command-by-command guide for reviewer-response analyses
+- `docs/quickstart_zh.md` — concise Chinese quick-start note
+- `docs/reviewer_materials/README.md` — mapping of preserved reviewer documents and sanitized filenames
+- `results/README.md`, `outputs/README.md`, `data/README.md` — folder-level guides

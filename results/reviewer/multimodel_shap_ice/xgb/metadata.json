@@ -1,0 +1,21 @@
+{
+  "task": "ice",
+  "data": "data/hc_dataset_ice.csv",
+  "model": "XGB",
+  "model_slug": "xgb",
+  "random_state": 42,
+  "cv_folds": 5,
+  "n_iter": 20,
+  "best_params": {
+    "colsample_bytree": 0.9349553422213137,
+    "gamma": 0,
+    "learning_rate": 0.043228279646265654,
+    "max_depth": 10,
+    "n_estimators": 130,
+    "reg_alpha": 2.0491073175135938e-05,
+    "reg_lambda": 4.915216946847741e-05,
+    "subsample": 0.5353587397628418
+  },
+  "best_cv_score": 0.7537256218247382,
+  "n_test": 113
+}

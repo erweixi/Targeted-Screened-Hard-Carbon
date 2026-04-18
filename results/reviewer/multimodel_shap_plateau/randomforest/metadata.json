@@ -1,0 +1,19 @@
+{
+  "task": "plateau",
+  "data": "data/hc_dataset_plateau.csv",
+  "best_params_json": "results/reviewer/rf_metrics_plateau.json",
+  "tag": "locked",
+  "random_state": 42,
+  "test_size": 0.2,
+  "n_train": 452,
+  "n_test": 113,
+  "best_params": {
+    "bootstrap": true,
+    "max_depth": 30,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "min_samples_split": 4,
+    "n_estimators": 161
+  },
+  "note": "This SHAP analysis uses locked best_params from the final RF JSON and does not retune."
+}

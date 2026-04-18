@@ -29,20 +29,15 @@ TASK_SPECS: Dict[str, TaskSpec] = {
 }
 
 
+SCORING = {
+    "r2": "r2",
+    "mae": "neg_mean_absolute_error",
+    "rmse": "neg_root_mean_squared_error",
+}
+
+
 def load_xy(csv_path: str | Path, task: str) -> Tuple["pd.DataFrame", "pd.Series"]:
-    """Load dataset and return X (features) and y (target).
-
-    Parameters
-    ----------
-    csv_path:
-        Path to the CSV dataset.
-    task:
-        "ice" or "plateau".
-
-    Returns
-    -------
-    X, y
-    """
+    """Load dataset and return X (features) and y (target)."""
     import pandas as pd
 
     task = task.lower().strip()
@@ -65,6 +60,13 @@ def load_xy(csv_path: str | Path, task: str) -> Tuple["pd.DataFrame", "pd.Series
     y = df[target_col].copy()
 
     return X, y
+
+
+def load_dataset(csv_path: str | Path):
+    """Load the raw CSV for descriptive summaries."""
+    import pandas as pd
+
+    return pd.read_csv(csv_path)
 
 
 def split_train_test(
@@ -100,6 +102,81 @@ def regression_metrics(y_true, y_pred) -> Dict[str, float]:
     }
 
 
+def cv_scores_to_summary(cv_results: Dict[str, object]) -> Dict[str, float]:
+    """Convert cross_validate output into manuscript-friendly summary statistics."""
+    import numpy as np
+
+    r2_scores = cv_results["test_r2"]
+    mae_scores = -cv_results["test_mae"]
+    rmse_scores = -cv_results["test_rmse"]
+
+    return {
+        "cv_r2_mean": float(np.mean(r2_scores)),
+        "cv_r2_std": float(np.std(r2_scores, ddof=1)) if len(r2_scores) > 1 else 0.0,
+        "cv_mae_mean": float(np.mean(mae_scores)),
+        "cv_mae_std": float(np.std(mae_scores, ddof=1)) if len(mae_scores) > 1 else 0.0,
+        "cv_rmse_mean": float(np.mean(rmse_scores)),
+        "cv_rmse_std": float(np.std(rmse_scores, ddof=1)) if len(rmse_scores) > 1 else 0.0,
+    }
+
+
+def fold_metrics_frame(cv_results: Dict[str, object]):
+    """Return per-fold metrics as a dataframe."""
+    import pandas as pd
+
+    df = pd.DataFrame(
+        {
+            "fold": list(range(1, len(cv_results["test_r2"]) + 1)),
+            "r2": cv_results["test_r2"],
+            "mae": -cv_results["test_mae"],
+            "rmse": -cv_results["test_rmse"],
+        }
+    )
+    return df
+
+
+def dataset_overview_frame(df, task: str):
+    """Summarize current feature coverage and descriptive statistics."""
+    import pandas as pd
+
+    target_col = TASK_SPECS[task].target_column
+    cols = FEATURE_COLUMNS + [target_col]
+    rows = []
+    for col in cols:
+        series = df[col]
+        rows.append(
+            {
+                "column": col,
+                "dtype": str(series.dtype),
+                "n_missing": int(series.isna().sum()),
+                "missing_fraction": float(series.isna().mean()),
+                "n_unique": int(series.nunique(dropna=True)),
+                "mean": float(series.mean()) if pd.api.types.is_numeric_dtype(series) else None,
+                "std": float(series.std()) if pd.api.types.is_numeric_dtype(series) else None,
+                "min": float(series.min()) if pd.api.types.is_numeric_dtype(series) else None,
+                "max": float(series.max()) if pd.api.types.is_numeric_dtype(series) else None,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def ensure_jsonable(obj):
+    """Recursively convert numpy/scikit objects to JSON-serializable types."""
+    import numpy as np
+
+    if isinstance(obj, dict):
+        return {str(k): ensure_jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [ensure_jsonable(v) for v in obj]
+    if isinstance(obj, (np.integer,)):
+        return int(obj)
+    if isinstance(obj, (np.floating,)):
+        return float(obj)
+    if isinstance(obj, (np.bool_,)):
+        return bool(obj)
+    return obj
+
+
 def require_skopt():
     """Import scikit-optimize objects with a clear error message if missing."""
     try:
@@ -110,4 +187,3 @@ def require_skopt():
             "scikit-optimize is required for Bayesian hyperparameter search. "
             "Install it with: pip install scikit-optimize"
         ) from e
-

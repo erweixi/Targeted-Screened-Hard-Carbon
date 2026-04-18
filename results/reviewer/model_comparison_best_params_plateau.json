@@ -1,0 +1,64 @@
+{
+  "task": "plateau",
+  "data": "data/hc_dataset_plateau.csv",
+  "random_state": 42,
+  "cv_folds": 5,
+  "n_iter": 20,
+  "Linear": {
+    "tuned": false,
+    "best_params": null
+  },
+  "GBR": {
+    "tuned": true,
+    "best_score": 0.7771460345733489,
+    "best_params": {
+      "learning_rate": 0.4565746385047453,
+      "max_depth": 5,
+      "n_estimators": 7
+    }
+  },
+  "Ridge": {
+    "tuned": true,
+    "best_score": 0.7036387759082041,
+    "best_params": {
+      "alpha": 0.05682268024870425
+    }
+  },
+  "Lasso": {
+    "tuned": true,
+    "best_score": 0.7019107507032148,
+    "best_params": {
+      "alpha": 0.0324749936268785
+    }
+  },
+  "NeuralNetwork": {
+    "tuned": false,
+    "best_params": null
+  },
+  "RandomForest": {
+    "tuned": true,
+    "best_score": 0.8050930545486927,
+    "best_params": {
+      "bootstrap": true,
+      "max_depth": 30,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "min_samples_split": 4,
+      "n_estimators": 161
+    }
+  },
+  "XGB": {
+    "tuned": true,
+    "best_score": 0.8107184668561247,
+    "best_params": {
+      "colsample_bytree": 0.8936112071942273,
+      "gamma": 0,
+      "learning_rate": 0.036531539206744484,
+      "max_depth": 6,
+      "n_estimators": 120,
+      "reg_alpha": 0.0007292877016846107,
+      "reg_lambda": 0.0019729794907396908,
+      "subsample": 0.5534765160121136
+    }
+  }
+}

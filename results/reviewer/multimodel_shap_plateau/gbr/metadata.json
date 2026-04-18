@@ -1,0 +1,16 @@
+{
+  "task": "plateau",
+  "data": "data/hc_dataset_plateau.csv",
+  "model": "GBR",
+  "model_slug": "gbr",
+  "random_state": 42,
+  "cv_folds": 5,
+  "n_iter": 20,
+  "best_params": {
+    "learning_rate": 0.4565746385047453,
+    "max_depth": 5,
+    "n_estimators": 7
+  },
+  "best_cv_score": 0.7771460345733489,
+  "n_test": 113
+}

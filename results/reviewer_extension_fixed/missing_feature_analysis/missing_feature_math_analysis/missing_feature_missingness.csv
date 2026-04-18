@@ -1,0 +1,6 @@
+feature,feature_label,n_missing,missing_fraction,n_non_missing
+carbonization_time_h,Carbonization time,41,0.07256637168141593,524
+heating_rate_C_min,Heating rate,200,0.35398230088495575,365
+pore_volume_cm3_g,Pore volume,263,0.4654867256637168,302
+lc_nm,Lc,279,0.49380530973451325,286
+la_nm,La,309,0.5469026548672566,256

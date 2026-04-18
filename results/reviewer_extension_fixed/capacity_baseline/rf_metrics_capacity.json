@@ -1,0 +1,50 @@
+{
+  "task": "capacity",
+  "task_alias": "reversible_capacity",
+  "data": "data/hc_dataset_extended_preprocessed.csv",
+  "target": "reversible_capacity_mAh_g",
+  "random_state": 42,
+  "n_iter": 20,
+  "cv_folds": 5,
+  "n_total": 579,
+  "n_train": 463,
+  "n_test": 116,
+  "feature_columns": [
+    "carbonization_temperature_C",
+    "d002_nm",
+    "id_ig",
+    "ssa_m2_g",
+    "electrolyte_type",
+    "current_density_mA_g"
+  ],
+  "best_cv_score_during_search": 0.20140489130326164,
+  "best_params": {
+    "bootstrap": true,
+    "max_depth": 30,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "min_samples_split": 4,
+    "n_estimators": 161
+  },
+  "cv_summary": {
+    "cv_r2_mean": 0.20140489130326164,
+    "cv_r2_std": 0.05259305808975874,
+    "cv_mae_mean": 48.9657832175299,
+    "cv_mae_std": 4.18407726089761,
+    "cv_rmse_mean": 66.30209433781546,
+    "cv_rmse_std": 8.752922395105212
+  },
+  "train_cv_metrics": {
+    "r2": 0.19746528645277295,
+    "mae": 48.96569912269511,
+    "mse": 4459.231957296921,
+    "rmse": 66.77748091457869
+  },
+  "test_metrics": {
+    "r2": 0.20619374346224606,
+    "mae": 46.21961416353219,
+    "mse": 3479.5287449279417,
+    "rmse": 58.98753041896178
+  },
+  "generalization_gap_r2": -0.008728457009473112
+}

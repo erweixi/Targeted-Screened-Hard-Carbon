@@ -1,0 +1,44 @@
+{
+  "data": "E:\\my paper\\硬碳小论文\\test\\data\\hc_dataset_extended_preprocessed.csv",
+  "target": "reversible_capacity_mAh_g",
+  "display_name": "Reversible capacity",
+  "rf_params": {
+    "bootstrap": true,
+    "max_depth": 30,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "min_samples_split": 4,
+    "n_estimators": 161
+  },
+  "random_state": 42,
+  "cv_folds": 5,
+  "test_size": 0.2,
+  "min_n_for_step": 10,
+  "baseline_features": [
+    "carbonization_temperature_C",
+    "d002_nm",
+    "id_ig",
+    "ssa_m2_g",
+    "electrolyte_type",
+    "current_density_mA_g"
+  ],
+  "baseline_forward_selection_order": [
+    "electrolyte_type",
+    "carbonization_temperature_C",
+    "d002_nm",
+    "ssa_m2_g",
+    "current_density_mA_g",
+    "id_ig"
+  ],
+  "omitted_feature_order_by_missingness": [
+    "carbonization_time_h",
+    "heating_rate_C_min",
+    "pore_volume_cm3_g",
+    "lc_nm",
+    "la_nm"
+  ],
+  "outputs": {
+    "csv": "E:\\my paper\\硬碳小论文\\test\\outputs\\progressive_rf_reversible_capacity.csv",
+    "png": "E:\\my paper\\硬碳小论文\\test\\outputs\\progressive_rf_reversible_capacity.png"
+  }
+}

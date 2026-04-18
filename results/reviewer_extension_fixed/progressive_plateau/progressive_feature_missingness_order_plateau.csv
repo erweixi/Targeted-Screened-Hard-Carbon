@@ -1,0 +1,6 @@
+task,feature,missing_count,missing_fraction,order_used
+plateau,carbonization_time_h,41,0.07256637168141593,1
+plateau,heating_rate_C_min,200,0.35398230088495575,2
+plateau,pore_volume_cm3_g,263,0.4654867256637168,3
+plateau,lc_nm,279,0.49380530973451325,4
+plateau,la_nm,309,0.5469026548672566,5

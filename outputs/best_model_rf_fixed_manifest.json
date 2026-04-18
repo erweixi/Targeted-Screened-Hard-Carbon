@@ -1,0 +1,55 @@
+{
+  "sources": {
+    "ice_rf_json": "results\\reviewer\\rf_metrics_ice.json",
+    "plateau_rf_json": "results\\reviewer\\rf_metrics_plateau.json"
+  },
+  "rf_best_params": {
+    "ice": {
+      "bootstrap": true,
+      "max_depth": 30,
+      "max_features": "log2",
+      "min_samples_leaf": 1,
+      "min_samples_split": 2,
+      "n_estimators": 600
+    },
+    "plateau": {
+      "bootstrap": true,
+      "max_depth": 30,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "min_samples_split": 4,
+      "n_estimators": 161
+    }
+  },
+  "rf_metrics": {
+    "ice": {
+      "cv_r2_mean": 0.7626539475474241,
+      "train_cv_r2": 0.7638998970652546,
+      "test_r2": 0.8263801965976569
+    },
+    "plateau": {
+      "cv_r2_mean": 0.8050930545486927,
+      "train_cv_r2": 0.8057756613635774,
+      "test_r2": 0.7940307900701538
+    }
+  },
+  "shap_csv_files": [
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\ice__carbonization_temperature_C.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\ice__current_density_mA_g.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\ice__d002_nm.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\ice__electrolyte_type.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\ice__id_ig.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\ice__ssa_m2_g.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\plateau__carbonization_temperature_C.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\plateau__current_density_mA_g.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\plateau__d002_nm.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\plateau__electrolyte_type.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\plateau__id_ig.csv",
+    "results\\manuscript_exports_rf_fixed\\shap_feature_csvs\\plateau__ssa_m2_g.csv"
+  ],
+  "figure_files": [
+    "outputs\\fig_S1_cv_r2_rf_fixed.png",
+    "outputs\\fig_S2_rf_performance_rf_fixed.png",
+    "outputs\\fig_S3_shap_rf_fixed.png"
+  ]
+}
