@@ -17,6 +17,7 @@ All scripts are designed to be run from the repository root with `python -m src.
 - `run_feature_robustness.py` — permutation importance and leave-one-feature-out analyses
 - `run_rf_posthoc_from_best_params.py` — rerun SHAP / robustness from fixed saved RF parameters
 - `run_dataset_summary.py` — descriptive summaries of input datasets
+- `make_multimodel_rank_supplement.py` — fills the missing seven-model ranking outputs used by the supplementary reviewer reply
 
 ## Extended-data / correction workflow
 
@@ -26,8 +27,9 @@ All scripts are designed to be run from the repository root with `python -m src.
 - `run_capacity_rf.py` — Random Forest baseline for reversible capacity
 - `run_reversible_capacity_rf.py` — related reversible-capacity RF workflow
 - `run_progressive_feature_addition.py` — progressively add extra variables by missingness order
-- `run_missing_feature_math_analysis.py` — correlation and OLS analysis for missing-value variables
+- `run_missing_feature_math_analysis.py` — correlation and OLS analysis for missing-value variables; now also refreshes correlation matrices that include reversible capacity
 - `run_all_extended_capacity_analyses.py` — orchestrates the full extended-data rerun
+- `make_missing_feature_correlation_heatmap.py` — draws the updated Spearman heatmap including reversible capacity
 
 ## Figure and packaging helpers
 

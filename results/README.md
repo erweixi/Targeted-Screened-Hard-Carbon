@@ -21,6 +21,8 @@ Includes:
 - full model-comparison tables and model-specific CV folds
 - SHAP outputs for multiple models
 - robustness analyses such as permutation importance and leave-one-feature-out tests
+- supplementary seven-model rank summaries under `multimodel_shap_ice/` and `multimodel_shap_plateau/`
+- combined rank table: `results/reviewer/multimodel_feature_rank_summary_7models_combined.csv`
 
 ### `results/reviewer_10fold/`
 10-fold sensitivity analysis used to check whether the main conclusions remain stable when the CV scheme changes.
@@ -34,6 +36,8 @@ Key subfolders:
 - `results/reviewer_extension_fixed/progressive_ice/` — progressive feature-addition analysis for ICE
 - `results/reviewer_extension_fixed/progressive_plateau/` — progressive feature-addition analysis for plateau capacity
 - `results/reviewer_extension_fixed/missing_feature_analysis/` — statistical analysis of the previously unused variables
+
+The missing-feature analysis folder now exports correlation matrices that include `reversible_capacity_mAh_g`, so the repository directly matches the supplementary reviewer response.
 
 ## Terminology note
 

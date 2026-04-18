@@ -1,0 +1,7 @@
+feature,mean_abs_shap,rank
+carbonization_temperature_C,0.383367419852635,1
+ssa_m2_g,0.09790704876710186,2
+current_density_mA_g,0.017902442487813454,3
+d002_nm,0.0,4
+id_ig,0.0,5
+electrolyte_type,0.0,6

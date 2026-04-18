@@ -1,0 +1,7 @@
+{
+  "task": "ice",
+  "model": "NeuralNetwork",
+  "importance_method": "permutation_importance",
+  "n_repeats": 30,
+  "n_test": 113
+}

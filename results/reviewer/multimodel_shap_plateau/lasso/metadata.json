@@ -1,0 +1,9 @@
+{
+  "task": "plateau",
+  "model": "Lasso",
+  "n_test": 113,
+  "importance_method": "mean_abs_shap",
+  "best_params": {
+    "alpha": 0.0324749936268785
+  }
+}
